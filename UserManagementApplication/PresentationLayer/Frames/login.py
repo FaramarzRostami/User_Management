@@ -5,7 +5,7 @@ from BusinessLogicLayer.user_business_logic import UserBusinessLogic
 class LoginFrame(Frame):
     def __init__(self, window, main_view):
         super().__init__(window)
-
+        self.onoff=1
         self.main_view = main_view
         self.user_business_logic = UserBusinessLogic()
 
@@ -19,14 +19,17 @@ class LoginFrame(Frame):
 
         self.username_entry = Entry(self)
         self.username_entry.insert(0, "Nafiseh1")
-        self.username_entry.grid(row=1, column=1, pady=(0, 10), padx=(0, 20), sticky="ew")
+        self.username_entry.grid(row=1, column=1,columnspan=3, pady=(0, 10), padx=(0, 20), sticky="ew")
 
         self.password_label = Label(self, text="Password")
         self.password_label.grid(row=2, column=0, pady=(0, 10), padx=10, sticky="e")
 
         self.password_entry = Entry(self, show="*")
         self.password_entry.insert(0, "111")
-        self.password_entry.grid(row=2, column=1, pady=(0, 10), padx=(0, 20), sticky="ew")
+        self.password_entry.grid(row=2, column=1, pady=(0, 10), sticky="ew")
+
+        self.show_pass_button = Button(self, text="@", command=self.show_pass)
+        self.show_pass_button.grid(row=2, column=2, pady=(0, 10),padx=10, sticky="w")
 
         self.login_button = Button(self, text="Login", command=self.login)
         self.login_button.grid(row=3, column=1, pady=(0, 10), sticky="w")
@@ -52,3 +55,11 @@ class LoginFrame(Frame):
 
     def register(self):
         self.main_view.switch_frame("register")
+
+    def show_pass(self):
+        if self.onoff==1:
+            self.password_entry.config(show="")
+            self.onoff=0
+        else:
+            self.password_entry.config(show="*")
+            self.onoff=1
